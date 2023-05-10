@@ -1,9 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import { Animated, StyleSheet, Dimensions, View } from "react-native";
-import dayjs from "dayjs";
+import { Animated, StyleSheet, View } from "react-native";
 
-const { width } = Dimensions.get("screen");
-const TICK_INTERVAL = 1000;
 const getClockStyles = ({ size, clockBackgroundColor }) =>
   StyleSheet.create({
     container: {
@@ -58,13 +54,11 @@ const getClockStyles = ({ size, clockBackgroundColor }) =>
     },
   });
 
-export default function Clock({ size, clockBackgroundColor }) {
+export default function ClockFace({ size, clockBackgroundColor, timeValue }) {
   const styles = getClockStyles({
     size: size,
     clockBackgroundColor: clockBackgroundColor,
   });
-  const [tick, setTick] = useState(new Animated.Value(0));
-  const timeValue = useRef(new Animated.Value(0)).current;
 
   const interpolated = {
     inputRange: [0, 360],
@@ -84,35 +78,6 @@ export default function Clock({ size, clockBackgroundColor }) {
   const angleHours = Animated.divide(angleMinutes, new Animated.Value(12));
   const HoursMovement = {
     transform: [{ rotate: angleHours.interpolate(interpolated) }],
-  };
-
-  const oneDay = 24 * 60 * 60;
-
-  useEffect(() => {
-    const current = dayjs();
-    const diff = current.endOf("day").diff(current, "seconds");
-    let _timer = oneDay - diff;
-    setTick(_timer);
-    timeValue.current = _timer - 30;
-
-    animate();
-
-    let _ticker = setInterval(() => {
-      _timer += 1;
-      setTick(_timer);
-    }, TICK_INTERVAL);
-    return () => {
-      clearInterval(_ticker);
-      _ticker = null;
-    };
-  }, [tick, timeValue]);
-
-  const animate = () => {
-    Animated.timing(timeValue, {
-      toValue: tick,
-      duration: TICK_INTERVAL / 2,
-      useNativeDriver: true,
-    }).start();
   };
 
   return (
