@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Dimensions, View } from "react-native";
-import ClockWork from "./ClockWork";
+import ClockWork from "./ClockWorks";
 
 const { width } = Dimensions.get("screen");
 

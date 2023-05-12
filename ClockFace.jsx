@@ -2,7 +2,7 @@ import { Animated, StyleSheet, View } from "react-native";
 
 const getClockStyles = ({ size, clockBackgroundColor }) =>
   StyleSheet.create({
-    container: {
+    contain: {
       flex: 1,
       backgroundColor: "transparent",
       alignItems: "center",
@@ -81,9 +81,8 @@ export default function ClockFace({ size, clockBackgroundColor, timeValue }) {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={styles.contain}>
       <View style={styles.clockface} />
-      <Animated.Text></Animated.Text>
       <Animated.View style={[styles.mover, HoursMovement]}>
         <View style={styles.hourhand} />
       </Animated.View>

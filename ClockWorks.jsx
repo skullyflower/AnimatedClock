@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Animated } from "react-native";
 import dayjs from "dayjs";
-import ClockFace from "./ClockFace";
+import { Cat } from "./characters/";
 
 const TICK_INTERVAL = 1000;
 
@@ -39,11 +39,5 @@ export default function ClockWork({ character }) {
     }).start();
   };
 
-  return (
-    <ClockFace
-      timeValue={timeValue}
-      size={200}
-      clockBackgroundColor='#70A8DB'
-    />
-  );
+  return <Cat timeValue={timeValue} />;
 }
