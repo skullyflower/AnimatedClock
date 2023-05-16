@@ -41,32 +41,49 @@ const catStyles = StyleSheet.create({
   },
   tail: {
     position: "absolute",
-    top: SIZE * 0.9,
+    top: SIZE * 0.1,
     left: SIZE * 0.35,
     width: SIZE * 0.35,
-    height: TAIL_HEIGHT,
+    height: 2 * TAIL_HEIGHT,
   },
 });
 
-export const Cat = ({ timeValue }) => {
-  const interloated = {
+export const Cat = ({ timeValue, oddEven }) => {
+  const intopolTranslate = {
     inputRange: [0, 1],
     outputRange: [SIZE * -0.035, SIZE * 0.035],
   };
-  const tickTock = Animated.modulo(timeValue, 1);
 
-  const eyeMovment = {
-    transform: [{ translateX: tickTock.interpolate(interloated) }],
+  const interpolDegrees = {
+    inputRange: [0, 1],
+    outputRange: ["-20deg", "20deg"],
   };
 
+  const tickTock = Animated.multiply(oddEven, 1);
+  const eyeMovment = {
+    transform: [{ translateX: tickTock.interpolate(intopolTranslate) }],
+  };
+
+  const pendulum = new Animated.multiply(oddEven, 1);
+  const tailSwing = {
+    transform: [{ rotate: pendulum.interpolate(interpolDegrees) }],
+  };
   return (
     <View style={catStyles.cat}>
       <Animated.View style={[catStyles.eyes, eyeMovment]}>
         <View style={catStyles.pupil} />
         <View style={catStyles.pupil} />
       </Animated.View>
-      <Animated.View style={[catStyles.tail]}>
-        <CatTail />
+      <Animated.View style={[catStyles.tail, tailSwing]}>
+        <View
+          style={{
+            width: "100%",
+            height: TAIL_HEIGHT,
+            position: "absolute",
+            bottom: 0,
+          }}>
+          <CatTail />
+        </View>
       </Animated.View>
       <CatBackground />
 

@@ -1,13 +1,13 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Dimensions, View } from "react-native";
-import ClockWork from "./ClockWorks";
+import ClockWorks from "./ClockWorks";
 
 const { width } = Dimensions.get("screen");
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <ClockWork character={"cat"} />
+      <ClockWorks character={"cat"} />
       <StatusBar style='auto' />
     </View>
   );
