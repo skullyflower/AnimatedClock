@@ -59,7 +59,6 @@ export default function ClockFace({ size, clockBackgroundColor, timeValue }) {
     size: size,
     clockBackgroundColor: clockBackgroundColor,
   });
-
   const interpolated = {
     inputRange: [0, 360],
     outputRange: ["0deg", "360deg"],
