@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Animated } from "react-native";
 import dayjs from "dayjs";
-import { Cat } from "./characters/";
+import { Cat } from "./characters/cat";
 
 const TICK_INTERVAL = 1000;
 

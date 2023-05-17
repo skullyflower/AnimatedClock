@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions, View, Animated } from "react-native";
-import ClockFace from "../ClockFace";
+import ClockFace from "../../ClockFace";
 import { CatBackground } from "./CatBackground";
 import { CatTail } from "./CatTail";
 
