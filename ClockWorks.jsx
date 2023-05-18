@@ -1,42 +1,42 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Animated } from "react-native";
 import dayjs from "dayjs";
 import { Cat } from "./characters/cat";
 
 const TICK_INTERVAL = 1000;
+export default class ClockWorks extends React.Component {
+  state = {
+    timeValue: new Animated.Value(0),
+    oddEven: new Animated.Value(0),
+    tick: new Animated.Value(0),
+    modulo: new Animated.Value(0),
+  };
+  _timer = 0;
+  _ticker = null;
+  componentDidMount() {
+    const current = dayjs();
+    const diff = current.endOf("day").diff(current, "seconds");
+    const oneDay = 24 * 60 * 60;
 
-export default function ClockWorksr({ character }) {
-  const [tick, setTick] = useState(new Animated.Value(0));
-  const [modulo, setModulo] = useState(new Animated.Value(0));
-  const [ticker, setTicker] = useState(null);
+    this._timer = oneDay - diff;
+    this.state.tick.setValue(this._timer);
+    this.state.timeValue.setValue(this._timer - 10);
 
-  const timeValue = useRef(new Animated.Value(0)).current;
-  const oddEven = useRef(new Animated.Value(0)).current;
-  const oneDay = 24 * 60 * 60;
-  const current = dayjs();
-  const diff = current.endOf("day").diff(current, "seconds");
-
-  useEffect(() => {
-    let _timer = oneDay - diff;
-    setTick(_timer);
-    setModulo(_timer % 2);
-    timeValue.current = _timer - 10;
-    oddEven.current = _timer % 2;
-    animate();
-
-    let _ticker = setInterval(() => {
-      _timer += 1;
-      setTick(_timer);
-      setModulo(_timer % 2);
+    this._animate();
+    this._ticker = setInterval(() => {
+      this._timer += 1;
+      this.state.tick.setValue(this._timer);
+      this.state.modulo.setValue(this._timer % 2);
     }, TICK_INTERVAL);
-    setTicker(_ticker);
-    return () => {
-      clearInterval(ticker);
-      _ticker = null;
-    };
-  }, [tick]);
+  }
 
-  const animate = () => {
+  componentWillUnmount() {
+    clearInterval(this._ticker);
+    this._ticker = null;
+  }
+
+  _animate = () => {
+    const { timeValue, oddEven, modulo, tick } = this.state;
     Animated.parallel([
       Animated.timing(oddEven, {
         toValue: modulo,
@@ -51,10 +51,13 @@ export default function ClockWorksr({ character }) {
     ]).start();
   };
 
-  return (
-    <Cat
-      timeValue={timeValue}
-      oddEven={oddEven}
-    />
-  );
+  render() {
+    const { timeValue, oddEven } = this.state;
+    return (
+      <Cat
+        timeValue={timeValue}
+        oddEven={oddEven}
+      />
+    );
+  }
 }
