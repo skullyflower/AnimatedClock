@@ -1,9 +1,9 @@
-import { StyleSheet, Dimensions, View, Animated } from "react-native";
-import ClockFace from "../../ClockFace";
-import { CatBackground } from "./CatBackground";
-import { CatTail } from "./CatTail";
+import { StyleSheet, Dimensions, View, Animated } from 'react-native';
+import ClockFace from '../../ClockFace';
+import { CatBackground } from './CatBackground';
+import { CatTail } from './CatTail';
 
-const { width } = Dimensions.get("screen");
+const { width } = Dimensions.get('screen');
 const SIZE = width * 0.9;
 const HEIGHT = (SIZE * 826) / 673;
 const TAIL_HEIGHT = (SIZE * 0.35 * 1014) / 454;
@@ -13,34 +13,34 @@ const catStyles = StyleSheet.create({
     height: HEIGHT,
   },
   clockPositioner: {
-    position: "absolute",
+    position: 'absolute',
     width: SIZE / 2,
     height: SIZE / 2,
     top: SIZE * 0.4,
     left: SIZE * 0.25,
   },
   eyes: {
-    position: "absolute",
-    display: "flex",
-    flexDirection: "row",
-    backgroundColor: "#AC4",
+    position: 'absolute',
+    display: 'flex',
+    flexDirection: 'row',
+    backgroundColor: '#AC4',
     top: SIZE * 0.15,
     left: SIZE * 0.27,
     width: SIZE * 0.44,
     height: HEIGHT * 0.1,
-    justifyContent: "space-between",
+    justifyContent: 'space-between',
   },
   pupil: {
     marginTop: 14,
     marginLeft: 28,
     marginRight: 28,
-    width: 5,
-    height: 20,
-    borderRadius: "50%",
-    backgroundColor: "#333",
+    width: SIZE * 0.025,
+    height: HEIGHT * 0.054,
+    borderRadius: '49%',
+    backgroundColor: '#333',
   },
   tail: {
-    position: "absolute",
+    position: 'absolute',
     top: SIZE * 0.1,
     left: SIZE * 0.35,
     width: SIZE * 0.35,
@@ -56,7 +56,11 @@ export const Cat = ({ timeValue, oddEven }) => {
 
   const interpolDegrees = {
     inputRange: [0, 1],
-    outputRange: ["-20deg", "20deg"],
+    outputRange: ['-20deg', '20deg'],
+  };
+  const interpolBoing = {
+    inputRange: [0, 1],
+    outputRange: [0.9, 1],
   };
 
   const tickTock = Animated.multiply(oddEven, 1);
@@ -66,7 +70,10 @@ export const Cat = ({ timeValue, oddEven }) => {
 
   const pendulum = new Animated.multiply(oddEven, 1);
   const tailSwing = {
-    transform: [{ rotate: pendulum.interpolate(interpolDegrees) }],
+    transform: [
+      { rotate: pendulum.interpolate(interpolDegrees) },
+      { scaleY: pendulum.interpolate(interpolBoing) },
+    ],
   };
   return (
     <View style={catStyles.cat}>
@@ -77,12 +84,12 @@ export const Cat = ({ timeValue, oddEven }) => {
       <Animated.View style={[catStyles.tail, tailSwing]}>
         <View
           style={{
-            width: "100%",
+            width: '100%',
             height: TAIL_HEIGHT,
-            position: "absolute",
+            position: 'absolute',
             bottom: 0,
           }}>
-          <CatTail />
+          <CatTail color={'gray'} />
         </View>
       </Animated.View>
       <CatBackground />

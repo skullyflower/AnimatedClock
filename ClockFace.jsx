@@ -1,56 +1,56 @@
-import { Animated, StyleSheet, View } from "react-native";
+import { Animated, StyleSheet, View } from 'react-native';
 
 const getClockStyles = ({ size, clockBackgroundColor }) =>
   StyleSheet.create({
     contain: {
       flex: 1,
-      backgroundColor: "transparent",
-      alignItems: "center",
-      justifyContent: "center",
+      backgroundColor: 'transparent',
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     clockface: {
-      position: "absolute",
+      position: 'absolute',
       backgroundColor: clockBackgroundColor,
       width: size,
       height: size,
       borderRadius: size / 2,
     },
     clockcenter: {
-      position: "absolute",
+      position: 'absolute',
       width: 10,
       height: 10,
-      backgroundColor: "#900",
+      backgroundColor: '#900',
       borderRadius: 5,
     },
     mover: {
-      position: "absolute",
+      position: 'absolute',
       width: size,
       height: size,
       borderRadius: size / 2,
-      alignItems: "center",
-      justifyContent: "flext-start",
-      border: "1 solid #000",
+      alignItems: 'center',
+      justifyContent: 'flext-start',
+      border: '1 solid #000',
     },
     hourhand: {
-      height: "35%",
-      marginTop: "15%",
+      height: '35%',
+      marginTop: '15%',
       width: 4,
       borderRadius: 4,
-      backgroundColor: "#333",
+      backgroundColor: '#333',
     },
     minutehand: {
-      height: "40%",
-      marginTop: "10%",
+      height: '40%',
+      marginTop: '10%',
       width: 3,
       borderRadius: 3,
-      backgroundColor: "#666",
+      backgroundColor: '#666',
     },
     secondhand: {
-      height: "45%",
-      marginTop: "5%",
+      height: '45%',
+      marginTop: '5%',
       width: 2,
       borderRadius: 2,
-      backgroundColor: "#900",
+      backgroundColor: '#900',
     },
   });
 
@@ -61,7 +61,7 @@ export default function ClockFace({ size, clockBackgroundColor, timeValue }) {
   });
   const interpolated = {
     inputRange: [0, 360],
-    outputRange: ["0deg", "360deg"],
+    outputRange: ['0deg', '360deg'],
   };
 
   const angleSeconds = Animated.multiply(timeValue, 6);

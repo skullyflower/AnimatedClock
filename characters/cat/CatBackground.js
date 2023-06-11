@@ -1,4 +1,4 @@
-import Svg, { Path, Ellipse } from "react-native-svg";
+import Svg, { Path, Ellipse } from 'react-native-svg';
 export const CatBackground = () => (
   <Svg
     xmlns='http://www.w3.org/2000/svg'

@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Animated } from "react-native";
-import dayjs from "dayjs";
-import { Cat } from "./characters/cat";
+import React, { useEffect, useRef, useState } from 'react';
+import { Animated } from 'react-native';
+import dayjs from 'dayjs';
+import { Cat } from './characters/cat';
 
 const TICK_INTERVAL = 1000;
 export default class ClockWorks extends React.Component {
@@ -12,10 +12,10 @@ export default class ClockWorks extends React.Component {
     modulo: new Animated.Value(0),
   };
   _timer = 0;
-  _ticker = null;
+  _tickinterval = null;
   componentDidMount() {
     const current = dayjs();
-    const diff = current.endOf("day").diff(current, "seconds");
+    const diff = current.endOf('day').diff(current, 'seconds');
     const oneDay = 24 * 60 * 60;
 
     this._timer = oneDay - diff;
@@ -23,7 +23,7 @@ export default class ClockWorks extends React.Component {
     this.state.timeValue.setValue(this._timer - 10);
 
     this._animate();
-    this._ticker = setInterval(() => {
+    this._tickinterval = setInterval(() => {
       this._timer += 1;
       this.state.tick.setValue(this._timer);
       this.state.modulo.setValue(this._timer % 2);
@@ -31,8 +31,8 @@ export default class ClockWorks extends React.Component {
   }
 
   componentWillUnmount() {
-    clearInterval(this._ticker);
-    this._ticker = null;
+    clearInterval(this._tickinterval);
+    this._tickinterval = null;
   }
 
   _animate = () => {
